@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CurrentWeather from '../components/CurrentWeather';
-import FiveDaysWeather from '../components/FiveDaysWeather';
+import CurrentWeatherSection from '../components/CurrentWeatherSection';
+import FiveDaysWeatherSection from '../components/FiveDaysWeatherSection';
 import SearchBar from '../components/SearchBar';
 
 const Home = () => {
@@ -9,8 +9,8 @@ const Home = () => {
   return (
     <StyledContainer>
       <SearchBar />
-      <CurrentWeather />
-      <FiveDaysWeather />
+      <CurrentWeatherSection />
+      <FiveDaysWeatherSection />
     </StyledContainer>
   );
 }

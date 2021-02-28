@@ -3,15 +3,15 @@ import {
   dummyDataAutocomplete,
   dummyTelAvivWeather,
   dummyTelAvivWeatherWithDetails,
-  dunnyTelAvivFiveDaysWeather
+  dummyTelAvivFiveDaysWeather
 } from '../dummyData';
 
 const base_url = 'http://dataservice.accuweather.com';
 const api_key = 'HxIx6T5ArCVjALKDqoX39NivrUTWJnuo';
 
 export const dummyAutocompleteURL = () => dummyDataAutocomplete;
-export const dummyCurrentWeatherURL = () => dummyTelAvivWeather;
-export const dummyFiveDaysWeatherURL = () => dunnyTelAvivFiveDaysWeather;
+export const dummyCurrentWeatherURL = () => dummyTelAvivWeatherWithDetails;
+export const dummyFiveDaysWeatherURL = () => dummyTelAvivFiveDaysWeather;
 
 //Real api
 export const autocompleteURL = (q) => `${base_url}/locations/v1/cities/autocomplete?apikey=${api_key}&q=${q}`;

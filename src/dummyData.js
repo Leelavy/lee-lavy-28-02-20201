@@ -560,7 +560,7 @@ export const dummyTelAvivWeatherWithDetails = [
 ]
 
 //5 days ahead forcast without details with metric values
-export const dunnyTelAvivFiveDaysWeather = {
+export const dummyTelAvivFiveDaysWeather = {
   "Headline": {
     "EffectiveDate": "2021-02-28T10:00:00+02:00",
     "EffectiveEpochDate": 1614499200,
