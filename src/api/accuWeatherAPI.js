@@ -1,6 +1,3 @@
-const base_url = 'http://dataservice.accuweather.com';
-const api_key = 'HxIx6T5ArCVjALKDqoX39NivrUTWJnuo';
-
 //dummyData api
 import {
   dummyDataAutocomplete,
@@ -8,6 +5,10 @@ import {
   dummyTelAvivWeatherWithDetails,
   dunnyTelAvivFiveDaysWeather
 } from '../dummyData';
+
+const base_url = 'http://dataservice.accuweather.com';
+const api_key = 'HxIx6T5ArCVjALKDqoX39NivrUTWJnuo';
+
 export const dummyAutocompleteURL = () => dummyDataAutocomplete;
 export const dummyCurrentWeatherURL = () => dummyTelAvivWeather;
 export const dummyFiveDaysWeatherURL = () => dunnyTelAvivFiveDaysWeather;
