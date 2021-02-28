@@ -744,3 +744,64 @@ export const dummyTelAvivFiveDaysWeather = {
     }
   ]
 }
+
+//weather by location without details
+export const dummyDataWeatherByLocation = {
+  "Version": 1,
+  "Key": "212597",
+  "Type": "City",
+  "Rank": 75,
+  "LocalizedName": "Maccabim",
+  "EnglishName": "Maccabim",
+  "PrimaryPostalCode": "",
+  "Region": {
+    "ID": "MEA",
+    "LocalizedName": "Middle East",
+    "EnglishName": "Middle East"
+  },
+  "Country": {
+    "ID": "IL",
+    "LocalizedName": "Israel",
+    "EnglishName": "Israel"
+  },
+  "AdministrativeArea": {
+    "ID": "M",
+    "LocalizedName": "Central District",
+    "EnglishName": "Central District",
+    "Level": 1,
+    "LocalizedType": "District",
+    "EnglishType": "District",
+    "CountryID": "IL"
+  },
+  "TimeZone": {
+    "Code": "IST",
+    "Name": "Asia/Jerusalem",
+    "GmtOffset": 2,
+    "IsDaylightSaving": false,
+    "NextOffsetChange": "2021-03-26T00:00:00Z"
+  },
+  "GeoPosition": {
+    "Latitude": 31.895,
+    "Longitude": 35.018,
+    "Elevation": {
+      "Metric": {
+        "Value": 243,
+        "Unit": "m",
+        "UnitType": 5
+      },
+      "Imperial": {
+        "Value": 797,
+        "Unit": "ft",
+        "UnitType": 0
+      }
+    }
+  },
+  "IsAlias": false,
+  "SupplementalAdminAreas": [],
+  "DataSets": [
+    "AirQualityCurrentConditions",
+    "AirQualityForecasts",
+    "Alerts",
+    "ForecastConfidence"
+  ]
+}
