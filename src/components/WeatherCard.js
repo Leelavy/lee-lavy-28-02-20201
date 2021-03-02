@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
 const WeatherCard = ({ title, value, measureUnit }) => {
 
   const classes = useStyles();
-  const iconColor = useTheme().palette.secondary.main;
+  const theme = useTheme();
+  const iconColor = theme.palette.secondary.main;
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <StatDiv>
-          <Line />
+          <Line color={theme.palette.secondary.main} />
           <StyledDataDiv>
             <StatTitle>{title}</StatTitle>
             <StatValue>{`${value} ${measureUnit}`}</StatValue>
@@ -78,7 +79,7 @@ const StyledDataDiv = styled.div`
 const Line = styled.div`
   height: 100%;
   width: 0.3rem;
-  background: black;
+  background: ${props => props.color};
 `;
 
 export default WeatherCard;
