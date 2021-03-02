@@ -1,15 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import DayWeatherCard from './DayWeatherCard';
 import styled from 'styled-components';
 
 const FiveDaysWeatherSection = () => {
+
+  const forecasts = useSelector(state => state.weather.fiveDaysWeather.DailyForecasts);
+
   return (
     <StyledDaysContainer>
-      <DayWeatherCard />
-      <DayWeatherCard />
-      <DayWeatherCard />
-      <DayWeatherCard />
-      <DayWeatherCard />
+      {forecasts && forecasts.map(day =>
+        <DayWeatherCard day={day} />
+      )}
     </StyledDaysContainer>
   );
 }

@@ -1,5 +1,6 @@
 const initState = {
   autocomplete: [],
+  currentCity: {},
   currentWeather: [],
   fiveDaysWeather: [],
 }
@@ -21,6 +22,17 @@ const weatherReducer = (state = initState, action) => {
         ...state,
         fiveDaysWeather: action.payload.fiveDaysWeather,
       };
+    case "UPDATE_CURRENT_CITY":
+      return {
+        ...state,
+        currentCity: action.payload.currentCity,
+      }
+    case "FETCH_WEATHER_BY_LOCATION":
+      return {
+        ...state,
+        currentCity: action.payload.locationData,
+        currentWeather: action.payload.weatherByLocation,
+      }
     default:
       return { ...state };
   }

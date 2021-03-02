@@ -1,17 +1,63 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loadCurrentWeather } from '../redux/actions/weatherActions';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-const FavoriteCard = () => {
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+    position: 'absolute',
+    borderRadius: '50%',
+    right: 10,
+    top: 10,
+  },
+}));
+
+const FavoriteCard = ({ city, weather, onFavDelete }) => {
+
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleFavoriteClick = () => {
+    dispatch(loadCurrentWeather(city));
+  }
+
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    onFavDelete(city.Key);
+  }
 
   return (
-    <StyledFavorite>
-      <StyledCityName>Tel Aviv</StyledCityName>
-      <StyledCountryName>Israel</StyledCountryName>
-      <Degrees>28°</Degrees>
-      <WeatherText>Cloudy</WeatherText>
-    </StyledFavorite>
+    <StyledLink to="/">
+      <StyledFavorite onClick={handleFavoriteClick}>
+        {city && weather && (
+          <>
+            <StyledCityName>{city.LocalizedName}</StyledCityName>
+            <StyledCountryName>{city.Country.LocalizedName}</StyledCountryName>
+            <Degrees>{weather.Temperature.Metric.Value}°</Degrees>
+            <WeatherText>{weather.WeatherText}</WeatherText>
+          </>
+        )}
+        <IconButton
+          className={classes.button}
+          aria-label="delete"
+          onClick={handleDeleteClick}
+        >
+          <HighlightOffIcon fontSize="large" />
+        </IconButton>
+      </StyledFavorite>
+    </StyledLink >
   );
 }
+
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
 
 const StyledFavorite = styled.div`
   display: flex;

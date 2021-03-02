@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { loadAutoComplete, loadCurrentWeather } from '../redux/actions/weatherActions';
+import { loadAutoComplete, loadCurrentWeather, loadFiveDaysWeather } from '../redux/actions/weatherActions';
 //MUI
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -27,8 +27,10 @@ const SearchBar = () => {
     setSearchInput(e.target.value);
   }
 
-  const handleLocationSelect = () => {
-    dispatch(loadCurrentWeather());
+  const handleLocationSelect = (value) => {
+    const city = autocompleteData.filter(el => el.LocalizedName === value)[0];
+    dispatch(loadCurrentWeather(city));
+    dispatch(loadFiveDaysWeather())
   }
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const SearchBar = () => {
         freeSolo
         disableClearable
         options={autocompleteData.map((option) => option.LocalizedName)}
-        onChange={handleLocationSelect}
+        onChange={(event, value) => handleLocationSelect(value)}
         renderInput={(params) => (
           <TextField
             {...params}

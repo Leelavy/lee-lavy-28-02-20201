@@ -1,6 +1,11 @@
 import axios from 'axios';
 //should import real api urls after setting up the app
-import { dummyAutocompleteURL, dummyCurrentWeatherURL, dummyFiveDaysWeatherURL } from '../../api/accuWeatherAPI';
+import {
+  dummyAutocompleteURL,
+  dummyCurrentWeatherURL,
+  dummyFiveDaysWeatherURL,
+  dummyWeatherByLocationURL,
+} from '../../api/accuWeatherAPI';
 
 export const loadAutoComplete = (q) => async (dispatch) => {
   //SHOULD BE FETCH AXIOS
@@ -8,7 +13,6 @@ export const loadAutoComplete = (q) => async (dispatch) => {
   if (q === 'te') {
     autocompleteData = dummyAutocompleteURL();
   }
-  console.log(autocompleteData);
   dispatch({
     type: "FETCH_AUTOCOMPLETE",
     payload: {
@@ -17,7 +21,7 @@ export const loadAutoComplete = (q) => async (dispatch) => {
   });
 };
 
-export const loadCurrentWeather = () => async (dispatch) => {
+export const loadCurrentWeather = (city) => async (dispatch) => {
   //SHOULD BE FETCH AXIOS
   const currentWeatherData = dummyCurrentWeatherURL();
   dispatch({
@@ -25,6 +29,12 @@ export const loadCurrentWeather = () => async (dispatch) => {
     payload: {
       currentWeather: currentWeatherData,
     },
+  });
+  dispatch({
+    type: "UPDATE_CURRENT_CITY",
+    payload: {
+      currentCity: city,
+    }
   });
 };
 
@@ -35,6 +45,19 @@ export const loadFiveDaysWeather = () => async (dispatch) => {
     type: "FETCH_FIVE_DAYS_WEATHER",
     payload: {
       fiveDaysWeather: fiveDaysWeatherData,
+    },
+  });
+};
+
+export const loadWeatherByLocation = (lat, lon) => async (dispatch) => {
+  //SHOULD BE FETCH AXIOS
+  const locationData = dummyWeatherByLocationURL();
+  const weatherByLocationData = dummyCurrentWeatherURL();
+  dispatch({
+    type: "FETCH_WEATHER_BY_LOCATION",
+    payload: {
+      locationData: locationData,
+      weatherByLocation: weatherByLocationData,
     },
   });
 };

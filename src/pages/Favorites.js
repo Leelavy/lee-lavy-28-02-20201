@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadFavoritesWeather, updateFavorites } from '../redux/actions/favoritesActions';
 import styled from 'styled-components';
 import FavoriteCard from '../components/FavoriteCard';
 
 const Favorites = () => {
+
+  const dispatch = useDispatch();
+  const favoriteCities = useSelector(state => state.favorites.favoriteCities);
+  const favoriteCitiesWeather = useSelector(state => state.favorites.favoriteCitiesWeather);
+
+  useEffect(() => {
+    dispatch(loadFavoritesWeather(favoriteCities))
+  }, [favoriteCities])
+
+  const handleFavDelete = (key) => {
+    const filtered = favoriteCities.filter(city => city.Key != key)
+    dispatch(updateFavorites(filtered));
+  }
 
   return (
     <StyledContainer>
@@ -12,12 +27,16 @@ const Favorites = () => {
       </StyledTitleArea>
       <GridContainer>
         <StyledFavorites>
-          <FavoriteCard />
-          <FavoriteCard />
-          <FavoriteCard />
-          <FavoriteCard />
-          <FavoriteCard />
-          <FavoriteCard />
+          {favoriteCities && favoriteCitiesWeather && favoriteCities.map((city, i) => {
+            const weather = favoriteCitiesWeather[i];
+            return (
+              <FavoriteCard
+                city={city}
+                weather={weather}
+                onFavDelete={handleFavDelete}
+              />)
+          })
+          }
         </StyledFavorites>
       </GridContainer>
     </StyledContainer>

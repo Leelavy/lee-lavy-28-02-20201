@@ -44,7 +44,7 @@ const SpaceDiv = styled.div`
 
 const StatValue = styled.p`
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 `;
 
 const StatTitle = styled.p`

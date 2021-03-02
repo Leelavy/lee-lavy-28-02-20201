@@ -36,7 +36,6 @@ const CurrentWeatherSection = () => {
     dispatch(addToFavorites(cityDetails));
   }
 
-
   const isFavorite = () => {
     for (const city of favoriteCities) {
       if (city.LocalizedName === cityDetails.LocalizedName) {
