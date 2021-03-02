@@ -9,9 +9,11 @@ import Moon from '../images/Moon.svg';
 import Rain from '../images/Rain.svg';
 import Windy from '../images/Windy.svg';
 import Snow from '../images/Snow.svg';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Paper from '@material-ui/core/Paper';
+import { getDegree } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -22,15 +24,29 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     letterSpacing: '0.1rem',
   },
+  paper: {
+    borderRadius: 0,
+    boxShadow: 'none',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+    margin: '1.5rem 0 2rem 0',
+    padding: '2rem',
+    borderRadius: '1rem',
+    overflow: 'hidden',
+    background: theme.palette.common.paper,
+  },
 }));
 
 const CurrentWeatherSection = () => {
 
   const classes = useStyles();
+  const theme = useTheme();
   const dispatch = useDispatch();
   const currentWeather = useSelector(state => state.weather.currentWeather[0]);
   const cityDetails = useSelector(state => state.weather.currentCity);
   const favoriteCities = useSelector(state => state.favorites.favoriteCities);
+  const measureUnit = useSelector(state => state.measureUnit.measureUnit);
 
   const handleFavoriteClick = () => {
     dispatch(addToFavorites(cityDetails));
@@ -71,24 +87,23 @@ const CurrentWeatherSection = () => {
   }
 
   return (
-    <StyledWeatherSection>
+    <Paper className={classes.paper}>
       {Object.keys(cityDetails).length !== 0 && (
         <>
           <StyledDataDiv>
             <StyledCityName>{cityDetails.LocalizedName}</StyledCityName>
             <StyledCountryDiv>
               <StyledCountryName>{cityDetails.Country.LocalizedName}</StyledCountryName>
-              <Line />
+              <Line color={theme.palette.secondary.main} />
             </StyledCountryDiv>
-            <Degrees>{currentWeather.Temperature.Metric.Value}°</Degrees>
+            <Degrees>{getDegree(currentWeather.Temperature.Metric.Value, measureUnit)}°</Degrees>
             <WeatherText>{currentWeather.WeatherText}</WeatherText>
             <Precipitation>{currentWeather.HasPrecipitation ? currentWeather.PrecipitationType : "No Precipitations"}</Precipitation>
           </StyledDataDiv>
-
           <StyledStatsDiv>
             <WeatherCard title="Wind" value={currentWeather.Wind.Speed.Metric.Value} measureUnit="km/h" />
             <WeatherCard title="Humidity" value={currentWeather.RelativeHumidity} measureUnit="%" />
-            <WeatherCard title="Realfeel" value={currentWeather.RealFeelTemperature.Metric.Value} measureUnit="°" />
+            <WeatherCard title="Realfeel" value={getDegree(currentWeather.RealFeelTemperature.Metric.Value, measureUnit)} measureUnit="°" />
           </StyledStatsDiv>
           <StyledWeatherImageDiv>
             <StyledWeatherImage src={getWeatherImage()} alt="sun" />
@@ -106,7 +121,7 @@ const CurrentWeatherSection = () => {
           </Button>
         </>
       )}
-    </StyledWeatherSection>
+    </Paper>
 
   );
 }
@@ -136,20 +151,10 @@ const Precipitation = styled.p`
   font-size: 0.8rem;
 `;
 
-const StyledWeatherSection = styled.div`
-  position: relative;
-  display: flex;
-  width: 100%;
-  margin: 1.5rem 0 2rem 0;
-  background: #dee2eb;
-  padding: 2rem;
-  border-radius: 1rem;
-  overflow: hidden;
-`;
-
 const StyledDataDiv = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 400px;
 `;
 
 const StyledCityName = styled.p`
@@ -173,7 +178,7 @@ const StyledCountryName = styled.p`
 const Line = styled.div`
   width: 3rem;
   height: 0.3rem;
-  background: black;
+  background: ${props => props.color};
 `;
 
 const Degrees = styled.h1`

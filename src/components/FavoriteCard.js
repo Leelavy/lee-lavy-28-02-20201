@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadCurrentWeather } from '../redux/actions/weatherActions';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Paper from '@material-ui/core/Paper';
+import { getDegree } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -15,12 +17,33 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
     top: 10,
   },
+  paper: {
+    display: 'flex',
+    boxShadow: 'none',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '300px',
+    borderRadius: '1rem',
+    background: theme.palette.common.card,
+    padding: '1rem',
+    cursor: 'pointer',
+    transition: 'transform .2s',
+    position: 'relative',
+    opacity: '0.7',
+    '&:hover': {
+      opacity: 1,
+      cursor: 'pointer',
+      transform: 'scale(0.95)',
+    }
+  }
 }));
 
 const FavoriteCard = ({ city, weather, onFavDelete }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const measureUnit = useSelector(state => state.measureUnit.measureUnit);
 
   const handleFavoriteClick = () => {
     dispatch(loadCurrentWeather(city));
@@ -33,12 +56,12 @@ const FavoriteCard = ({ city, weather, onFavDelete }) => {
 
   return (
     <StyledLink to="/">
-      <StyledFavorite onClick={handleFavoriteClick}>
+      <Paper className={classes.paper} onClick={handleFavoriteClick}>
         {city && weather && (
           <>
             <StyledCityName>{city.LocalizedName}</StyledCityName>
             <StyledCountryName>{city.Country.LocalizedName}</StyledCountryName>
-            <Degrees>{weather.Temperature.Metric.Value}°</Degrees>
+            <Degrees>{getDegree(weather.Temperature.Metric.Value, measureUnit)}°</Degrees>
             <WeatherText>{weather.WeatherText}</WeatherText>
           </>
         )}
@@ -49,7 +72,7 @@ const FavoriteCard = ({ city, weather, onFavDelete }) => {
         >
           <HighlightOffIcon fontSize="large" />
         </IconButton>
-      </StyledFavorite>
+      </Paper>
     </StyledLink >
   );
 }
@@ -57,28 +80,6 @@ const FavoriteCard = ({ city, weather, onFavDelete }) => {
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: none;
-`;
-
-const StyledFavorite = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-  border-radius: 1rem;
-  background: #DEE2EB;
-  padding: 1rem;
-  cursor: pointer;
-
-  transition: transform .2s;
-  position: relative;
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 1;
-    cursor: pointer;
-    transform: scale(0.95);
-  }
 `;
 
 const WeatherText = styled.p`

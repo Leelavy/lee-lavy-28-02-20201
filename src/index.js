@@ -5,7 +5,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './redux/reducers/index';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,30 +13,10 @@ const store = createStore(
   composeEnchancer(applyMiddleware(thunk))
 );
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#00286B',
-    },
-    secondary: {
-      main: '#005DAF',
-    },
-    action: {
-      disabledBackground: '#6a9ecc',
-      disabled: '#EAEDF2',
-    }
-  },
-  typography: {
-    fontFamily: "'Montserrat', sans-serif",
-  }
-});
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

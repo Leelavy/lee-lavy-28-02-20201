@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { WiStrongWind, WiHumidity, WiThermometer } from 'weather-icons-react';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,27 +14,34 @@ const useStyles = makeStyles((theme) => ({
       height: theme.spacing(16),
     },
   },
+  paper: {
+    display: 'flex',
+    background: theme.palette.common.bullet,
+    borderRadius: '1rem',
+    boxShadow: 'none',
+  }
 }));
 
 const WeatherCard = ({ title, value, measureUnit }) => {
 
   const classes = useStyles();
+  const iconColor = useTheme().palette.secondary.main;
 
   return (
     <div className={classes.root}>
-      <Card>
+      <Paper className={classes.paper}>
         <StatDiv>
           <Line />
           <StyledDataDiv>
             <StatTitle>{title}</StatTitle>
             <StatValue>{`${value} ${measureUnit}`}</StatValue>
             <SpaceDiv />
-            {title === 'Wind' ? (<WiStrongWind size={40} color='#00286B' />)
-              : title === 'Humidity' ? (<WiHumidity size={40} color='#00286B' />)
-                : (<WiThermometer size={40} color='#00286B' />)}
+            {title === 'Wind' ? (<WiStrongWind size={40} color={iconColor} />)
+              : title === 'Humidity' ? (<WiHumidity size={40} color={iconColor} />)
+                : (<WiThermometer size={40} color={iconColor} />)}
           </StyledDataDiv>
         </StatDiv>
-      </Card>
+      </Paper>
     </div>
   );
 }
@@ -51,12 +59,6 @@ const StatTitle = styled.p`
   font-size: 0.8rem;
   color: #adb6c5;
   margin-bottom: 0.2rem;
-`;
-
-const Card = styled.div`
-  display: flex;
-  background-color: #EAEDF2;
-  border-radius: 1rem;
 `;
 
 const StatDiv = styled.div`

@@ -1,8 +1,32 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiCloudyWindy, WiMoonrise } from 'weather-icons-react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import { getDegree } from '../utils';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: 'flex',
+    boxShadow: 'none',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    padding: '1rem',
+    margin: '0 1rem',
+    borderRadius: '0.8rem',
+    background: theme.palette.common.paper,
+    'p': {
+      color: '#a6b3c9',
+      margin: '0 0.2rem',
+    }
+  },
+}));
 
 const DayWeatherCard = ({ day }) => {
+
+  const classes = useStyles();
+  const measureUnit = useSelector(state => state.measureUnit.measureUnit);
 
   const getDayOfWeek = () => {
     var timestamp = day.EpochDate;
@@ -37,29 +61,13 @@ const DayWeatherCard = ({ day }) => {
   }
 
   return (
-    <StyledDayCard>
+    <Paper className={classes.paper}>
       <p>{getDayOfWeek()}</p>
       {getWeatherIcon()}
-      <p>{day.Temperature.Maximum.Value}°</p>
-      <p>{day.Temperature.Minimum.Value}°</p>
-    </StyledDayCard>
+      <p>{getDegree(day.Temperature.Maximum.Value, measureUnit)}°</p>
+      <p>{getDegree(day.Temperature.Minimum.Value, measureUnit)}°</p>
+    </Paper>
   );
 }
-
-const StyledDayCard = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #DEE2EB;
-  width: 100%;
-  padding: 1rem;
-  margin: 0 1rem;
-  border-radius: 0.8rem;
-
-  p {
-    color: #a6b3c9;
-    margin: 0 0.2rem;
-  }
-`;
 
 export default DayWeatherCard;

@@ -3,10 +3,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loadFavoritesWeather, updateFavorites } from '../redux/actions/favoritesActions';
 import styled from 'styled-components';
 import FavoriteCard from '../components/FavoriteCard';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: 0,
+    boxShadow: 'none',
+    width: '100%',
+    background: 'none',
+  },
+}));
 
 const Favorites = () => {
 
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const classes = useStyles();
   const favoriteCities = useSelector(state => state.favorites.favoriteCities);
   const favoriteCitiesWeather = useSelector(state => state.favorites.favoriteCitiesWeather);
   const [noFavDisplay, setNoFavDisplay] = useState(false);
@@ -24,10 +40,10 @@ const Favorites = () => {
   }
 
   return (
-    <StyledContainer>
+    <Paper className={classes.paper}>
       <StyledTitleArea>
         <h1>FAVORITES</h1>
-        <Line />
+        <Line color={theme.palette.secondary.main} />
       </StyledTitleArea>
       <GridContainer>
         <StyledFavorites>
@@ -45,7 +61,7 @@ const Favorites = () => {
           {noFavDisplay ? (<StyledNoFavs>You have no favorites.</StyledNoFavs>) : ''}
         </StyledFavorites>
       </GridContainer>
-    </StyledContainer>
+    </Paper>
   );
 }
 
@@ -66,13 +82,6 @@ const StyledFavorites = styled.div`
   grid-row-gap: 3rem;
 `;
 
-const StyledContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
-
 const GridContainer = styled.div`
   width: 100%;
   margin: 2rem 0;
@@ -82,7 +91,7 @@ const Line = styled.div`
   width: 40%;
   height: 0.3rem;
   margin: 1rem 0;
-  background: #00286B;
+  background: ${props => props.color};
 `;
 
 const StyledTitleArea = styled.div`
