@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     transition: 'transform .2s',
     position: 'relative',
     opacity: '0.7',
+    maxWidth: '350px',
     '&:hover': {
       opacity: 1,
       cursor: 'pointer',

@@ -34,7 +34,11 @@ const useStyles = makeStyles((theme) => ({
     padding: '2rem',
     borderRadius: '1rem',
     overflow: 'hidden',
-    background: theme.palette.common.paper,
+    backgroundColor: theme.weatherBack.backgroundColor,
+    backgroundImage: theme.weatherBack.backgroundImage,
+    backgroundAttachment: theme.weatherBack.backgroundAttachment,
+    backgroundSize: theme.weatherBack.backgroundSize,
+    backgroundPosition: theme.weatherBack.backgroundPosition,
   },
 }));
 

@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Appbar from './components/Appbar';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { darkProps, lightProps } from './theme';
+import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
 
@@ -39,10 +40,12 @@ const App = () => {
         <Appbar onModeClick={handleModeClick} darkMode={darkMode} />
         <StyledContainer>
           <StyledContent>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/favorites" component={Favorites} />
-            </Switch>
+            <AnimatePresence exitBeforeEnter>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/favorites" component={Favorites} />
+              </Switch>
+            </AnimatePresence>
           </StyledContent>
         </StyledContainer>
       </BrowserRouter>

@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import FavoriteCard from '../components/FavoriteCard';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { motion } from 'framer-motion';
+import { pageAnimation } from '../animations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,30 +42,42 @@ const Favorites = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
-      <StyledTitleArea>
-        <h1>FAVORITES</h1>
-        <Line color={theme.palette.secondary.main} />
-      </StyledTitleArea>
-      <GridContainer>
-        <StyledFavorites>
-          {favoriteCities && favoriteCitiesWeather && favoriteCities.map((city, i) => {
-            const weather = favoriteCitiesWeather[i];
-            return (
-              <FavoriteCard
-                city={city}
-                weather={weather}
-                onFavDelete={handleFavDelete}
-                key={i}
-              />)
-          })
-          }
-          {noFavDisplay ? (<StyledNoFavs>You have no favorites.</StyledNoFavs>) : ''}
-        </StyledFavorites>
-      </GridContainer>
-    </Paper>
+    <StyledContainer
+      variants={pageAnimation(200, 0)}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+    >
+      <Paper className={classes.paper}>
+        <StyledTitleArea>
+          <h1>FAVORITES</h1>
+          <Line color={theme.palette.secondary.main} />
+        </StyledTitleArea>
+        <GridContainer>
+          <StyledFavorites>
+            {favoriteCities && favoriteCitiesWeather && favoriteCities.map((city, i) => {
+              const weather = favoriteCitiesWeather[i];
+              return (
+                <FavoriteCard
+                  city={city}
+                  weather={weather}
+                  onFavDelete={handleFavDelete}
+                  key={i}
+                />)
+            })
+            }
+            {noFavDisplay ? (<StyledNoFavs>You have no favorites.</StyledNoFavs>) : ''}
+          </StyledFavorites>
+        </GridContainer>
+      </Paper>
+    </StyledContainer>
+
   );
 }
+
+const StyledContainer = styled(motion.div)`
+  width: 100%;
+`;
 
 const StyledNoFavs = styled.p`
   display: flex;
@@ -77,7 +91,8 @@ const StyledFavorites = styled.div`
   z-index: 1;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 0.2fr));
   grid-column-gap: 3rem;
   grid-row-gap: 3rem;
 `;

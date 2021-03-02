@@ -5,6 +5,8 @@ import { WiDaySunny, WiCloudy, WiRain, WiSnow, WiCloudyWindy, WiMoonrise } from 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { getDegree } from '../utils';
+import { motion } from 'framer-motion';
+import { bulletAnimation } from '../animations';
 
 const useStyles = makeStyles((theme) => ({
   paper: {

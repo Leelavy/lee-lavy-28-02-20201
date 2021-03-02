@@ -7,6 +7,19 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html {
+    &::-webkit-scrollbar{
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb{
+      background-color: ${props => props.theme.palette.primary.main};
+    }
+    &::-webkit-scrollbar-track{
+      background-color: ${props => props.theme.palette.secondary.main};
+    }
+
+  }
+
   #root {
     height: 100vh;
   }

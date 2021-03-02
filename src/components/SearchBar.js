@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import debounce from 'lodash.debounce';
+import { motion } from 'framer-motion';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -51,7 +52,7 @@ const SearchBar = () => {
   }, [searchInput])
 
   return (
-    <div className={classes.search}>
+    <motion.div className={classes.search}>
       <Autocomplete
         freeSolo
         disableClearable
@@ -70,7 +71,7 @@ const SearchBar = () => {
           />
         )}
       />
-    </div>
+    </motion.div>
   );
 }
 

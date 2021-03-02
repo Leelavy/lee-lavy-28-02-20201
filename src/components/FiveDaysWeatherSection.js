@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import DayWeatherCard from './DayWeatherCard';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const FiveDaysWeatherSection = () => {
 
@@ -16,7 +17,7 @@ const FiveDaysWeatherSection = () => {
   );
 }
 
-const StyledDaysContainer = styled.div`
+const StyledDaysContainer = styled(motion.div)`
   z-index: 1;
   width: 100%;
   display: grid;
