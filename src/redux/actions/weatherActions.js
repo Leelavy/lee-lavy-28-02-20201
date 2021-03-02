@@ -1,63 +1,71 @@
 import axios from 'axios';
-//should import real api urls after setting up the app
 import {
-  dummyAutocompleteURL,
-  dummyCurrentWeatherURL,
-  dummyFiveDaysWeatherURL,
-  dummyWeatherByLocationURL,
+  autocompleteURL,
+  currentWeatherURL,
+  fiveDaysWeatherURL,
+  getCityByLocation,
 } from '../../api/accuWeatherAPI';
 
 export const loadAutoComplete = (q) => async (dispatch) => {
-  //SHOULD BE FETCH AXIOS
-  let autocompleteData = [];
-  if (q === 'te') {
-    autocompleteData = dummyAutocompleteURL();
+  if (q) {
+    try {
+      const autocompleteRes = await axios.get(autocompleteURL(q));
+      dispatch({
+        type: "FETCH_AUTOCOMPLETE",
+        payload: {
+          autocomplete: autocompleteRes.data,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
-  dispatch({
-    type: "FETCH_AUTOCOMPLETE",
-    payload: {
-      autocomplete: autocompleteData,
-    },
-  });
 };
 
 export const loadCurrentWeather = (city) => async (dispatch) => {
-  //SHOULD BE FETCH AXIOS
-  const currentWeatherData = dummyCurrentWeatherURL();
-  dispatch({
-    type: "FETCH_CURRENT_WEATHER",
-    payload: {
-      currentWeather: currentWeatherData,
-    },
-  });
-  dispatch({
-    type: "UPDATE_CURRENT_CITY",
-    payload: {
-      currentCity: city,
-    }
-  });
+  if (city) {
+    const currentWeatherRes = await axios.get(currentWeatherURL(city.Key, true));
+    const fiveDaysWeatherRes = await axios.get(fiveDaysWeatherURL(city.Key, false, true));
+    dispatch({
+      type: "FETCH_CURRENT_WEATHER",
+      payload: {
+        currentWeather: currentWeatherRes.data,
+        fiveDaysWeather: fiveDaysWeatherRes.data,
+        currentCity: city,
+      },
+    });
+  }
 };
 
-export const loadFiveDaysWeather = () => async (dispatch) => {
-  //SHOULD BE FETCH AXIOS
-  const fiveDaysWeatherData = dummyFiveDaysWeatherURL();
-  dispatch({
-    type: "FETCH_FIVE_DAYS_WEATHER",
-    payload: {
-      fiveDaysWeather: fiveDaysWeatherData,
-    },
-  });
+export const loadFiveDaysWeather = (city) => async (dispatch) => {
+  if (city) {
+    const fiveDaysWeatherRes = await axios.get(fiveDaysWeatherURL(city.Key, false, true));
+    dispatch({
+      type: "FETCH_FIVE_DAYS_WEATHER",
+      payload: {
+        fiveDaysWeather: fiveDaysWeatherRes.data,
+      },
+    });
+  }
 };
 
 export const loadWeatherByLocation = (lat, lon) => async (dispatch) => {
-  //SHOULD BE FETCH AXIOS
-  const locationData = dummyWeatherByLocationURL();
-  const weatherByLocationData = dummyCurrentWeatherURL();
+
+  const locationRes = await getCityByLocation(lat, lon);
+
+  let [weatherByLocationRes, fiveDaysWeatherRes] = await
+    Promise.all([
+      axios.get(currentWeatherURL(locationRes.data.Key, true)),
+      axios.get(fiveDaysWeatherURL(locationRes.data.Key, false, true))
+    ]);
+
   dispatch({
     type: "FETCH_WEATHER_BY_LOCATION",
     payload: {
-      locationData: locationData,
-      weatherByLocation: weatherByLocationData,
+      locationData: locationRes.data,
+      weatherByLocation: weatherByLocationRes.data,
+      fiveDaysWeather: fiveDaysWeatherRes.data,
     },
   });
 };
+
