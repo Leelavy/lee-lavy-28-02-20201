@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadFavoritesWeather, updateFavorites } from '../redux/actions/favoritesActions';
 import styled from 'styled-components';
@@ -9,9 +9,13 @@ const Favorites = () => {
   const dispatch = useDispatch();
   const favoriteCities = useSelector(state => state.favorites.favoriteCities);
   const favoriteCitiesWeather = useSelector(state => state.favorites.favoriteCitiesWeather);
+  const [noFavDisplay, setNoFavDisplay] = useState(false);
 
   useEffect(() => {
     dispatch(loadFavoritesWeather(favoriteCities))
+    if (favoriteCities.length === 0) {
+      setNoFavDisplay(true);
+    }
   }, [favoriteCities])
 
   const handleFavDelete = (key) => {
@@ -37,11 +41,20 @@ const Favorites = () => {
               />)
           })
           }
+          {noFavDisplay ? (<StyledNoFavs>You have no favorites.</StyledNoFavs>) : ''}
         </StyledFavorites>
       </GridContainer>
     </StyledContainer>
   );
 }
+
+const StyledNoFavs = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+  font-size: 2rem;
+`;
 
 const StyledFavorites = styled.div`
   z-index: 1;

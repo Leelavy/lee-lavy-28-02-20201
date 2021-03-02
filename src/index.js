@@ -22,6 +22,10 @@ const theme = createMuiTheme({
     secondary: {
       main: '#005DAF',
     },
+    action: {
+      disabledBackground: '#6a9ecc',
+      disabled: '#EAEDF2',
+    }
   },
   typography: {
     fontFamily: "'Montserrat', sans-serif",

@@ -97,6 +97,7 @@ const CurrentWeatherSection = () => {
             variant="contained"
             color="secondary"
             size="small"
+            disabled={isFavorite()}
             className={classes.button}
             startIcon={<FavoriteIcon />}
             onClick={handleFavoriteClick}

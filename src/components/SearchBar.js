@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { loadAutoComplete, loadCurrentWeather, loadFiveDaysWeather } from '../redux/actions/weatherActions';
@@ -6,6 +6,7 @@ import { loadAutoComplete, loadCurrentWeather, loadFiveDaysWeather } from '../re
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
+import debounce from 'lodash.debounce';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -16,12 +17,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useDebounce = (callback, delay) => {
+  const debouncedCallBack = useCallback(debounce(callback, delay), []);
+  return debouncedCallBack;
+}
+
 const SearchBar = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
   const autocompleteData = useSelector(state => state.weather.autocomplete);
   const [searchInput, setSearchInput] = useState('');
+  const debouncedAutocomplete = useDebounce((val) => dispatch(loadAutoComplete(val)), 1000);
 
   const handleSearchInput = (e) => {
     setSearchInput(e.target.value);
@@ -34,7 +41,7 @@ const SearchBar = () => {
   }
 
   useEffect(() => {
-    dispatch(loadAutoComplete(searchInput));
+    debouncedAutocomplete(searchInput);
   }, [searchInput])
 
   return (
