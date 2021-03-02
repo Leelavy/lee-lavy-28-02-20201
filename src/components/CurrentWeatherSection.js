@@ -140,7 +140,7 @@ const StyledWeatherSection = styled.div`
   position: relative;
   display: flex;
   width: 100%;
-  margin: 2rem 0;
+  margin: 1.5rem 0 2rem 0;
   background: #dee2eb;
   padding: 2rem;
   border-radius: 1rem;

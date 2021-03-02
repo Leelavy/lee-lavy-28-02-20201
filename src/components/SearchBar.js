@@ -28,6 +28,7 @@ const SearchBar = () => {
   const dispatch = useDispatch();
   const autocompleteData = useSelector(state => state.weather.autocomplete);
   const [searchInput, setSearchInput] = useState('');
+  const [inputErrorToggle, setInputErrorToggle] = useState(false);
   const debouncedAutocomplete = useDebounce((val) => dispatch(loadAutoComplete(val)), 1000);
 
   const handleSearchInput = (e) => {
@@ -42,8 +43,11 @@ const SearchBar = () => {
     }
   }
 
+  const errorCheck = () => (/[^a-zA-Z ]/.test(searchInput) ? setInputErrorToggle(true) : setInputErrorToggle(false))
+
   useEffect(() => {
     debouncedAutocomplete(searchInput);
+    errorCheck();
   }, [searchInput])
 
   return (
@@ -59,6 +63,8 @@ const SearchBar = () => {
             label="Search Location..."
             margin="normal"
             variant="outlined"
+            error={inputErrorToggle}
+            helperText={inputErrorToggle ? "Search input should only contain english letters." : ' '}
             InputProps={{ ...params.InputProps, type: 'search' }}
             onChange={handleSearchInput}
           />
