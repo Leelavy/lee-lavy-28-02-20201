@@ -9,8 +9,8 @@ const FiveDaysWeatherSection = () => {
 
   return (
     <StyledDaysContainer>
-      {forecasts && forecasts.map(day =>
-        <DayWeatherCard day={day} />
+      {forecasts && forecasts.map((day, i) =>
+        <DayWeatherCard day={day} key={i} />
       )}
     </StyledDaysContainer>
   );

@@ -38,6 +38,7 @@ const Favorites = () => {
                 city={city}
                 weather={weather}
                 onFavDelete={handleFavDelete}
+                key={i}
               />)
           })
           }

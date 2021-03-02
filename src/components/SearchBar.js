@@ -36,8 +36,10 @@ const SearchBar = () => {
 
   const handleLocationSelect = (value) => {
     const city = autocompleteData.filter(el => el.LocalizedName === value)[0];
-    dispatch(loadCurrentWeather(city));
-    dispatch(loadFiveDaysWeather())
+    if (city) {
+      dispatch(loadCurrentWeather(city));
+      dispatch(loadFiveDaysWeather())
+    }
   }
 
   useEffect(() => {
