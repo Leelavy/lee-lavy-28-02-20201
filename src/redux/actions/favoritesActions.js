@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { dummyCurrentWeatherURL } from '../../api/accuWeatherAPI';
+import { getCurrentWeather } from '../../api/accuWeatherAPI';
+import { showLoader, hideLoader, showErrorModal, hideErrorModal } from '../actions/appStatusActions';
 
 export const addToFavorites = (city) => async (dispatch) => {
   dispatch({
@@ -11,17 +11,27 @@ export const addToFavorites = (city) => async (dispatch) => {
 }
 
 export const loadFavoritesWeather = (favoriteCities) => async (dispatch) => {
-  const favoriteCitiesWeather = [];
-  favoriteCities.forEach(city => {
-    const cityWeather = dummyCurrentWeatherURL()[0];
-    favoriteCitiesWeather.push(cityWeather);
-  })
-  dispatch({
-    type: "FETCH_FAVORITES_WEATHER",
-    payload: {
-      favoriteCitiesWeather: favoriteCitiesWeather,
-    },
-  });
+  if (favoriteCities.length > 0) {
+    dispatch(showLoader());
+    try {
+      const favoriteCitiesWeather = [];
+      for (const city of favoriteCities) {
+        const cityWeatherRes = await getCurrentWeather(city.Key, false);
+        favoriteCitiesWeather.push(cityWeatherRes.data[0]);
+      }
+      dispatch({
+        type: "FETCH_FAVORITES_WEATHER",
+        payload: {
+          favoriteCitiesWeather: favoriteCitiesWeather,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+      dispatch(showErrorModal(e.toString()))
+    }
+    dispatch(hideLoader());
+  }
+
 }
 
 export const updateFavorites = (favoriteCities) => async (dispatch) => {

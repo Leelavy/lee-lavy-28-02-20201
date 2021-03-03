@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: '0.1rem',
   },
   paper: {
-    borderRadius: 0,
     boxShadow: 'none',
     position: 'relative',
     display: 'flex',
@@ -39,6 +38,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundAttachment: theme.weatherBack.backgroundAttachment,
     backgroundSize: theme.weatherBack.backgroundSize,
     backgroundPosition: theme.weatherBack.backgroundPosition,
+  },
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: 'none',
+    width: '100%',
+    height: '40vh',
+    background: 'transparent',
   },
 }));
 
@@ -91,9 +99,9 @@ const CurrentWeatherSection = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
-      {Object.keys(cityDetails).length !== 0 && (
-        <>
+    <>
+      {Object.keys(cityDetails).length !== 0 && currentWeather ? (
+        <Paper className={classes.paper}>
           <StyledDataDiv>
             <StyledCityName>{cityDetails.LocalizedName}</StyledCityName>
             <StyledCountryDiv>
@@ -123,12 +131,33 @@ const CurrentWeatherSection = () => {
           >
             {isFavorite() ? "Followed" : "Add To Favorites"}
           </Button>
-        </>
-      )}
-    </Paper>
-
+        </Paper>
+      ) : (
+          <Paper className={classes.container}>
+            <StyledError>
+              There was a problem loading the current weather.
+              <p>Please Try Again Later.</p>
+            </StyledError>
+          </Paper>
+        )
+      }
+    </>
   );
 }
+
+const StyledError = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+  font-size: 2rem;
+
+  p {
+    margin-top: 1rem;
+    font-weight: 400;
+  }
+`;
 
 const StyledWeatherImage = styled.img`
   width: 20rem;

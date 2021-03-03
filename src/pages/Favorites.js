@@ -37,7 +37,7 @@ const Favorites = () => {
   }, [favoriteCities])
 
   const handleFavDelete = (key) => {
-    const filtered = favoriteCities.filter(city => city.Key != key)
+    const filtered = favoriteCities.filter(city => city.Key !== key)
     dispatch(updateFavorites(filtered));
   }
 

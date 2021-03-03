@@ -22,3 +22,13 @@ export const pageAnimation = (yVal = 0, xVal = 0) => ({
   },
 });
 
+export const fade = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      ease: 'easeOut',
+      duration: 0.75,
+    },
+  },
+};

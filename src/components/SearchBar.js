@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-//Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { loadAutoComplete, loadCurrentWeather, loadFiveDaysWeather } from '../redux/actions/weatherActions';
-//MUI
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';

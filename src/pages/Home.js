@@ -15,11 +15,9 @@ const Home = () => {
       animate="show"
       exit="exit"
     >
-
       <SearchBar />
       <CurrentWeatherSection />
       <FiveDaysWeatherSection />
-
     </StyledContainer>
   );
 }

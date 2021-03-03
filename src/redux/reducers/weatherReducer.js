@@ -16,6 +16,8 @@ const weatherReducer = (state = initState, action) => {
       return {
         ...state,
         currentWeather: action.payload.currentWeather,
+        fiveDaysWeather: action.payload.fiveDaysWeather,
+        currentCity: action.payload.currentCity,
       };
     case "FETCH_FIVE_DAYS_WEATHER":
       return {
@@ -32,6 +34,7 @@ const weatherReducer = (state = initState, action) => {
         ...state,
         currentCity: action.payload.locationData,
         currentWeather: action.payload.weatherByLocation,
+        fiveDaysWeather: action.payload.fiveDaysWeather,
       }
     default:
       return { ...state };

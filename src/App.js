@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { loadWeatherByLocation, loadFiveDaysWeather } from './redux/actions/weatherActions';
+import { loadCurrentWeather, loadWeatherByLocation } from './redux/actions/weatherActions';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -9,7 +9,9 @@ import styled from 'styled-components';
 import Appbar from './components/Appbar';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { darkProps, lightProps } from './theme';
-import { AnimatePresence } from 'framer-motion';
+import Loader from './components/Loader';
+import ErrorModal from './components/ErrorModal';
+import { defaultCityKey } from './utils';
 
 const App = () => {
 
@@ -22,10 +24,9 @@ const App = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         dispatch(loadWeatherByLocation(position.coords.latitude, position.coords.longitude))
-        dispatch(loadFiveDaysWeather())
       });
     } else {
-      console.log("Geolocation Not Available");
+      loadCurrentWeather({ Key: defaultCityKey })
     }
   }, []);
 
@@ -37,15 +38,15 @@ const App = () => {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <BrowserRouter>
         <GlobalStyles theme={darkMode ? darkTheme : lightTheme} />
+        <Loader />
+        <ErrorModal />
         <Appbar onModeClick={handleModeClick} darkMode={darkMode} />
         <StyledContainer>
           <StyledContent>
-            <AnimatePresence exitBeforeEnter>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/favorites" component={Favorites} />
-              </Switch>
-            </AnimatePresence>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/favorites" component={Favorites} />
+            </Switch>
           </StyledContent>
         </StyledContainer>
       </BrowserRouter>
