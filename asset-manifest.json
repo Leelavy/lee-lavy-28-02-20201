@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.js": "/react-gh-pages/static/js/main.1b09f1ca.chunk.js",
+    "main.js.map": "/react-gh-pages/static/js/main.1b09f1ca.chunk.js.map",
+    "runtime-main.js": "/react-gh-pages/static/js/runtime-main.821cd611.js",
+    "runtime-main.js.map": "/react-gh-pages/static/js/runtime-main.821cd611.js.map",
+    "static/js/2.02ff3d0b.chunk.js": "/react-gh-pages/static/js/2.02ff3d0b.chunk.js",
+    "static/js/2.02ff3d0b.chunk.js.map": "/react-gh-pages/static/js/2.02ff3d0b.chunk.js.map",
+    "index.html": "/react-gh-pages/index.html",
+    "static/js/2.02ff3d0b.chunk.js.LICENSE.txt": "/react-gh-pages/static/js/2.02ff3d0b.chunk.js.LICENSE.txt",
+    "static/media/Cloudy.ce8e5be4.svg": "/react-gh-pages/static/media/Cloudy.ce8e5be4.svg",
+    "static/media/Moon.83b8e7c6.svg": "/react-gh-pages/static/media/Moon.83b8e7c6.svg",
+    "static/media/Rain.fb3fb600.svg": "/react-gh-pages/static/media/Rain.fb3fb600.svg",
+    "static/media/Snow.7f7a2088.svg": "/react-gh-pages/static/media/Snow.7f7a2088.svg",
+    "static/media/Sun.9c27cb91.svg": "/react-gh-pages/static/media/Sun.9c27cb91.svg",
+    "static/media/Windy.963a20dd.svg": "/react-gh-pages/static/media/Windy.963a20dd.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.821cd611.js",
+    "static/js/2.02ff3d0b.chunk.js",
+    "static/js/main.1b09f1ca.chunk.js"
+  ]
+}
