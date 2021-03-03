@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loadCurrentWeather, loadWeatherByLocation } from './redux/actions/weatherActions';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 import styled from 'styled-components';
 import Appbar from './components/Appbar';
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <BrowserRouter>
+      <HashRouter basename="/">
         <GlobalStyles theme={darkMode ? darkTheme : lightTheme} />
         <Loader />
         <ErrorModal />
@@ -48,7 +48,7 @@ const App = () => {
             </Switch>
           </StyledContent>
         </StyledContainer>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }
