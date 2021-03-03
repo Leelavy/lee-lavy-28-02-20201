@@ -26,8 +26,7 @@ export const loadFavoritesWeather = (favoriteCities) => async (dispatch) => {
         },
       });
     } catch (e) {
-      console.log(e);
-      dispatch(showErrorModal(e.toString()))
+      dispatch(showErrorModal(e.response.data.Message))
     }
     dispatch(hideLoader());
   }

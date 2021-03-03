@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
 import { getDegree } from '../utils';
 import {
@@ -22,11 +23,8 @@ const useStyles = makeStyles((theme) => ({
     padding: '1rem',
     margin: '0 1rem',
     borderRadius: '0.8rem',
+    fontSize: '0.9rem',
     background: theme.palette.common.paper,
-    'p': {
-      color: '#a6b3c9',
-      margin: '0 0.2rem',
-    }
   },
 }));
 
@@ -71,10 +69,14 @@ const DayWeatherCard = ({ day }) => {
     <Paper className={classes.paper}>
       <p>{getDayOfWeek()}</p>
       {getWeatherIcon()}
-      <p>{getDegree(day.Temperature.Maximum.Value, measureUnit)}°</p>
-      <p>{getDegree(day.Temperature.Minimum.Value, measureUnit)}°</p>
+      <StyledTemp>{getDegree(day.Temperature.Maximum.Value, measureUnit)}°</StyledTemp>
+      <StyledTemp>{getDegree(day.Temperature.Minimum.Value, measureUnit)}°</StyledTemp>
     </Paper>
   );
 }
+
+const StyledTemp = styled.p`
+  margin-left: 0.3rem;
+`;
 
 export default DayWeatherCard;

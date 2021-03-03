@@ -11,7 +11,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { darkProps, lightProps } from './theme';
 import Loader from './components/Loader';
 import ErrorModal from './components/ErrorModal';
-import { defaultCityKey } from './utils';
+import { defaultCityData } from './utils';
 
 const App = () => {
 
@@ -21,12 +21,11 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
+    dispatch(loadCurrentWeather(defaultCityData))
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         dispatch(loadWeatherByLocation(position.coords.latitude, position.coords.longitude))
       });
-    } else {
-      loadCurrentWeather({ Key: defaultCityKey })
     }
   }, []);
 

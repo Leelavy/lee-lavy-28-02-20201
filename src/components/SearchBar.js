@@ -28,7 +28,7 @@ const SearchBar = () => {
   const autocompleteData = useSelector(state => state.weather.autocomplete);
   const [searchInput, setSearchInput] = useState('');
   const [inputErrorToggle, setInputErrorToggle] = useState(false);
-  const debouncedAutocomplete = useDebounce((val) => dispatch(loadAutoComplete(val)), 1000);
+  const debouncedAutocomplete = useDebounce((val) => dispatch(loadAutoComplete(val)), 500);
 
   const handleSearchInput = (e) => {
     setSearchInput(e.target.value);

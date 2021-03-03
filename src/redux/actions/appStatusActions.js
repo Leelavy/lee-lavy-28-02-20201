@@ -1,16 +1,16 @@
-export const showLoader = () => async (dispatch) => {
+export const showLoader = () => (dispatch) => {
   dispatch({
     type: "SHOW_LOADER",
   });
 }
 
-export const hideLoader = () => async (dispatch) => {
+export const hideLoader = () => (dispatch) => {
   dispatch({
     type: "HIDE_LOADER",
   });
 }
 
-export const showErrorModal = (errorMessage) => async (dispatch) => {
+export const showErrorModal = (errorMessage) => (dispatch) => {
   dispatch({
     type: "SHOW_ERROR_MODAL",
     payload: {
@@ -19,7 +19,7 @@ export const showErrorModal = (errorMessage) => async (dispatch) => {
   });
 }
 
-export const hideErrorModal = () => async (dispatch) => {
+export const hideErrorModal = () => (dispatch) => {
   dispatch({
     type: "HIDE_ERROR_MODAL",
   });

@@ -22,8 +22,7 @@ export const loadAutoComplete = (q) => async (dispatch) => {
         },
       });
     } catch (e) {
-      console.log(e);
-      dispatch(showErrorModal(e.toString()));
+      dispatch(showErrorModal(e.response.data.Message));
     }
   }
 };
@@ -49,7 +48,7 @@ export const loadCurrentWeather = (city) => async (dispatch) => {
       });
     } catch (e) {
       console.log(e);
-      dispatch(showErrorModal(e.toString()))
+      // dispatch(showErrorModal(e.response.data.Message))
     }
     dispatch(hideLoader());
   }
@@ -68,8 +67,7 @@ export const loadFiveDaysWeather = (city) => async (dispatch) => {
         },
       });
     } catch (e) {
-      console.log(e);
-      dispatch(showErrorModal(e.toString()))
+      dispatch(showErrorModal(e.response.data.Message))
     }
     dispatch(hideLoader());
   }
@@ -95,8 +93,7 @@ export const loadWeatherByLocation = (lat, lon) => async (dispatch) => {
       },
     });
   } catch (e) {
-    console.log(e.toString());
-    dispatch(showErrorModal(e.toString()));
+    dispatch(showErrorModal(e.response.data.Message));
   }
   dispatch(hideLoader());
 };

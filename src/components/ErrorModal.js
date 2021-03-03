@@ -7,6 +7,7 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { hideErrorModal } from '../redux/actions/appStatusActions';
+import styled from 'styled-components';
 
 const generalErrorMsg = 'There was an error. Try again later.';
 
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     outline: 'none',
+    textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
